@@ -32,7 +32,7 @@ public class ConvertZ {
         }
     }
 
-    public List<List<Integer>> generate(int numRows) {
-
-    }
+//    public List<List<Integer>> generate(int numRows) {
+//
+//    }
 }
