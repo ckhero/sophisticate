@@ -33,15 +33,40 @@ import java.util.Stack;
  */
 public class RemoveKdigits {
     public static void main(String[] args) throws Exception {
-//        System.out.println((new RemoveKdigits()).removeKdigits("11", 2));
+        System.out.println((new RemoveKdigits()).removeKdigits("11", 2));
 //        System.out.println((new RemoveKdigits()).removeKdigits("10200", 1));
-//        System.out.println((new RemoveKdigits()).removeKdigits("112", 1));
-//        System.out.println((new RemoveKdigits()).removeKdigits("5337", 2));
-//        System.out.println((new RemoveKdigits()).removeKdigits("1432219", 3));
-        System.out.println((new RemoveKdigits()).removeKdigits("99641043637881536115347130215819342018286368478941148499497648482711459533461004", 10));
+        System.out.println((new RemoveKdigits()).removeKdigits("112", 1));
+//        System.out.println((new RemoveKdigits()).removeKdigits("5337", 2));System.out.println((new RemoveKdigits()).removeKdigits("1432219", 3));
+//        System.out.println((new RemoveKdigits()).removeKdigits("99641043637881536115347130215819342018286368478941148499497648482711459533461004", 10));
+
     }
 
     public String removeKdigits(String num, int k) {
-        return num;
+        char[] digits = num.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        // 当前元素和它的左边元素对比，如果比左边的小 左边的移除
+        for (char digit : digits) {
+            while (k > 0 && !stack.empty() && stack.peek() > digit) {
+                stack.pop();
+                k--;
+            }
+            stack.push(digit);
+        }
+        while (k > 0 && !stack.empty()) {
+            stack.pop();
+            k--;
+        }
+        Character[] aaa = new Character[stack.size()];
+        stack.copyInto(aaa);
+        boolean zero = true;
+        StringBuilder str = new StringBuilder();
+        for (Character curr : aaa) {
+            if (curr == '0' && zero) {
+                continue;
+            }
+            zero = false;
+            str.append(curr);
+        }
+        return str.toString().isEmpty() ? "0" : str.toString();
     }
 }
