@@ -10,10 +10,10 @@ public class RotateRight {
     public static void main(String[] args) {
 
         ListNode root = new ListNode(1);
-        ListNode root1 = new ListNode(4);
+        ListNode root1 = new ListNode(2);
         ListNode root2 = new ListNode(3);
-        ListNode root3 = new ListNode(5);
-        ListNode root4 = new ListNode(2);
+        ListNode root3 = new ListNode(4);
+        ListNode root4 = new ListNode(5);
         root.next = root1;
         root1.next = root2;
         root2.next = root3;
@@ -25,27 +25,19 @@ public class RotateRight {
         if (head == null) {
             return null;
         }
-        ListNode leftEnd = head;
-        ListNode right = head;
-        while (k >= 0 && right != null) {
-            k--;
-            right = right.next;
+        ListNode end = head;
+        int n = 1;
+        while (end.next != null) {
+            n++;
+            end = end.next;
         }
-
-        while (right != null) {
-            leftEnd = leftEnd.next;
-            right = right.next;
+        end.next = head;
+        end = head;
+        for (int i = 0; i < n - k - 1; i++) {
+            end = end.next;
         }
-        right = leftEnd.next;
-        ListNode rightEnd = leftEnd.next;
-        while (rightEnd != null && rightEnd.next != null) {
-            rightEnd = rightEnd.next;
-        }
-        leftEnd.next = null;
-        if (rightEnd != null) {
-            rightEnd.next = head;
-        }
-        return right;
-
+        ListNode next = end.next;
+        end.next = null;
+        return next;
     }
 }
