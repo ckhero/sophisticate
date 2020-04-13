@@ -5,6 +5,9 @@
  * Time: 6:13 PM
  */
 
+import java.util.*;
+import java.util.LinkedList;
+
 /**
  * https://leetcode-cn.com/problems/minimum-window-substring/
  * 76. 最小覆盖子串
@@ -27,7 +30,7 @@
  */
 public class MinWindow {
     public static void main(String[] args) {
-
+        (new MinWindow()).lengthOfLongestSubstring("abcabcbb");
         System.out.println((new MinWindow()).minWindow("ADOBECODEBANC", "ABC"));
         System.out.println();
     }
@@ -71,5 +74,83 @@ public class MinWindow {
             right++;
         }
         return minLen == Integer.MAX_VALUE ? "": s.substring(start, start + minLen);
+    }
+
+    /**
+     * 两数之和
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] nums, int target) {
+        int len = nums.length;
+        int left = 0;
+        int right = len - 1;
+        while (left < right) {
+            int curr = nums[left] + nums[right];
+            if (curr == target) {
+                return new int[]{nums[left], nums[right]};
+            }
+            if (curr > target) {
+                right--;
+            }
+            if (curr < target) {
+                left++;
+            }
+        }
+        return new int[]{};
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.isEmpty()) {
+            return 0;
+        }
+        int len = s.length();
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+        HashMap<Character, Integer> count = new HashMap<>();
+        while (right < len) {
+            char curr = s.charAt(right);
+            if (count.containsKey(curr)) {
+                left = Math.max(left, count.get(curr) + 1);
+            }
+            maxLen = Math.max(right - left + 1, maxLen);
+            count.put(curr, right);
+            right++;
+        }
+        return maxLen;
+
+    }
+ public class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) { val = x; }
+  }
+
+    /**
+     * https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/
+     * @param head
+     * @return
+     */
+    public int[] reversePrint(ListNode head) {
+        Stack<Integer> stack = new Stack<>();
+        int idx = 0;
+        while (head != null) {
+            idx++;
+            stack.push(head.val);
+            head = head.next;
+        }
+        int[] ans = new int[idx];
+        idx = 0;
+        while (!stack.isEmpty()) {
+            ans[idx++] = stack.pop();
+        }
+        return ans;
     }
 }
