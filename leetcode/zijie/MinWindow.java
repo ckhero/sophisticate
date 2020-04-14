@@ -153,4 +153,52 @@ public class MinWindow {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/add-two-numbers-ii/
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+        int carry = 0;
+        ListNode pre = null;
+        while (l1 != null || l2 != null) {
+            int sum = carry;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            carry = sum / 10;
+
+            ListNode curr = new ListNode(sum % 10);
+            curr.next = pre;
+            pre = curr;
+        }
+        if (carry > 0) {
+            ListNode curr = new ListNode(carry);
+            curr.next = pre;
+            pre = curr;
+        }
+        return pre;
+    }
+
+    private ListNode reverse(ListNode root) {
+        ListNode pre = null;
+
+        while (root != null) {
+            ListNode next = root.next;
+            root.next = pre;
+            pre = root;
+            root = next;
+        }
+        return pre;
+    }
 }
