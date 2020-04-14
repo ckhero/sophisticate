@@ -33,8 +33,10 @@ public class PrintTree {
         int height = getHeight(root);
         List<List<String>> ans = new ArrayList<>();
         String[][] res = new String[height][ (int) Math.pow(2, height) - 1];
+        String[] tmp = new String[(int) Math.pow(2, height) - 1];
+        Arrays.fill(tmp, "");
         for (int i = 0; i < height; i++) {
-            Arrays.fill(res[i], "");
+           res[i] = Arrays.copyOfRange(tmp, 0, (int) Math.pow(2, height) - 1);
         }
         fill(res, root, 0, 0, res[0].length);
         for (int i = 0; i < height; i++) {
