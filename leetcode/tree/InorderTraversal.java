@@ -1,9 +1,12 @@
-package tree;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * 中序遍历
+ */
 public class InorderTraversal {
 
     public static class TreeNode {
@@ -23,31 +26,32 @@ public class InorderTraversal {
 
     }
     private static List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
         TreeNode curr = root;
         while (curr != null || !stack.isEmpty()) {
-            while (curr!=null) {
-                stack.push(curr);
+            while (curr != null) {
+                stack.add(curr);
                 curr = curr.left;
             }
-            curr = stack.pop();
-            res.add(curr.val);
-            curr = curr.right;
+            TreeNode node = stack.pop();
+            ans.add(node.val);
+            curr = node.right;
         }
-        return res;
+        return ans;
     }
 
-//    private static List<Integer> inorderTraversal(TreeNode root) {
-//        List<Integer> res = new ArrayList<>();
+
+//    private static List<Integer> inorderTraversal2(TreeNode root) {
 //        if ( root == null) {
 //            return res;
 //        }
-//        List<Integer> left = inorderTraversal(root.left);
-//        List<Integer> right = inorderTraversal(root.right);
-//        res.addAll(left);
+//        inorderTraversal(root.left);
 //        res.add(root.val);
-//        res.addAll(right);
+//        inorderTraversal(root.right);
+//
 //        return res;
 //    }
+//    List<Integer> ans = new ArrayList<>();
+
 }
