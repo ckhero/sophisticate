@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  * Created by IntelliJ IDEA.
  * User: ckhero
@@ -5,7 +7,7 @@
  * Time: 3:31 PM
  */
 public class TreeToDoublyList {
-    class Node {
+    static class Node {
         public int val;
         public Node left;
         public Node right;
@@ -25,20 +27,45 @@ public class TreeToDoublyList {
 //    Node head = new Node(-1);
 //    Node end = head;
 
+    public static void main(String[] args) {
+
+        Node root4 = new Node(4);
+        Node root5 = new Node(5);
+        Node root3 = new Node(3);
+        Node root2 = new Node(2);
+        Node root1 = new Node(1);
+        root4.left=root2;
+        root4.right = root5;
+        root2.left = root1;
+        root2.right = root3;
+        (new TreeToDoublyList()).treeToDoublyList(root4);
+        System.out.println();
+    }
     public Node treeToDoublyList(Node root) {
-        if (root.left == null && root.right == null) {
-            return root;
+        Stack<Node> stack = new Stack<>();
+        Node curr = root;
+        Node head = null;
+        Node end = null;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.add(curr);
+                curr = curr.left;
+            }
+            Node tmp = stack.pop();
+            if (head == null) {
+                head = tmp;
+                end = head;
+            } else {
+                end.right = tmp;
+                tmp.left = end;
+                end = end.right;
+            }
+            curr = tmp.right;
         }
-        if (root.left != null) {
-            Node tmp = treeToDoublyList(root.left);
-            tmp.right = root;
-            root.left = tmp;
+        if (head != null) {
+            end.right = head;
+            head.left = end;
         }
-        if (root.right != null) {
-            Node tmp = treeToDoublyList(root.left);
-            tmp.left = root;
-            root.right = tmp;
-        }
-        return root;
+        return head;
     }
 }
