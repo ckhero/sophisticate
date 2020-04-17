@@ -4,7 +4,7 @@
  * Date: 2020/4/15
  * Time: 11:34 AM
  */
-
+package offer;
 import java.util.Stack;
 
 /**
@@ -60,7 +60,7 @@ public class MinStack {
         throw new RuntimeException("shujuweikong");
     }
 
-    public int getMin() {
+    public int min() {
         if (!helper.isEmpty()) {
             return helper.peek();
         }

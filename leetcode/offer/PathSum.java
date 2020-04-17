@@ -4,6 +4,7 @@
  * Date: 2020/4/16
  * Time: 5:36 PM
  */
+package offer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,38 +43,34 @@ import java.util.Stack;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class PathSum {
-
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(-2);
+        TreeNode root2 = new TreeNode(-3);
+        root.right = root2;
+        (new PathSum()).pathSum(root, - 5);
+    }
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> ans = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        List<Integer> tmp = new ArrayList<>();
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                tmp.add(curr.val);
-                sum -= curr.val;
-                if (sum == 0) {
-                    ans.add(new ArrayList<>(tmp));
-                    if (!stack.isEmpty()) {
-                        curr = stack.pop().right;
-                        tmp.remove(tmp.size() - 1);
-                    } else {
-                        curr = null;
-                        break;
-                    }
-                } else if (sum > 0){
-                    curr = curr.left;
-                } else if (sum < 0) {
-                    if (!stack.isEmpty()) {
-                        curr = stack.pop().right;
-                        tmp.remove(tmp.size() - 1);
-                    } else {
-                        curr = null;
-                        break;
-                    }
-                }
-            }
+        if (null == root) {
+            return ans;
         }
+        List<Integer> tmp = new ArrayList<>();
+        backtrack(root, sum, tmp, ans);
         return ans;
+    }
+
+    public void backtrack(TreeNode root, int sum, List<Integer> path, List<List<Integer>> ans) {
+        if (root == null) {
+
+            return;
+        }
+        sum -= root.val;
+        path.add(root.val);
+        if (root.right == null && root.left == null && sum == 0) {
+            ans.add(new ArrayList<>(path));
+        }
+        backtrack(root.left, sum, path, ans);
+        backtrack(root.right, sum, path, ans);
+        path.remove(path.size() - 1);
     }
 }
