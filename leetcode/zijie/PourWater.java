@@ -39,46 +39,12 @@ public class PourWater {
 
     public int[] pourWater(int[] heights, int V, int K) {
         int len = heights.length;
-        int  left = K - 1;
-        int  right = K + 1;
+        int  left = K;
+        int  right = K;
         int curr = heights[K];
         while (V > 0) {
-            int t = 1;
-            while (left >=0 && V > 0) {
-                if (heights[left] > curr) {
-                    break;
-                }
-                if (heights[left] == curr) {
-                    left--;
-                    continue;
-                }
-                heights[left] += 1;
-                V--;
-                t--;
-            }
-            while (right < len && V > 0) {
-                if (heights[right] > curr) {
-                    break;
-                }
-                if (heights[right] == curr) {
-                    right++;
-                    continue;
-                }
-                heights[right] += 1;
-                t--;
-                V--;
-            }
-            if (t > 0 && V > 0) {
-                heights[K] += t;
-                V--;
-                curr += 1;
-            }
-            if (curr > heights[K-1]) {
-                left = K - 1;
-            }
-            if (curr > heights[K+1]) {
-                right = K + 1;
-            }
+//            while (heights[left] > heights[left - 1])
+
         }
         return heights;
     }
