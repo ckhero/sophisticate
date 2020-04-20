@@ -27,27 +27,36 @@ import java.util.Arrays;
  */
 public class PourWater {
     public static void main(String[] args) {
-//        int[] heights = new int[]{2,1,1,2,1,2,2};
-        int[] heights = new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1};
+        int[] heights = new int[]{2,1,1,2,1,2,2};
+//        int[] heights = new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1};
 //        int[] heights = new int[]{1,2,3,4};
 //        int[] heights = new int[]{3,3,1,3,3};
 //        System.out.println(Arrays.toString((new PourWater()).pourWater(heights, 4, 3)));
-        System.out.println(Arrays.toString((new PourWater()).pourWater(heights, 10, 2)));
+        System.out.println(Arrays.toString((new PourWater()).pourWater(heights, 4, 3)));
 //        System.out.println(Arrays.toString((new PourWater()).pourWater(heights, 2, 2)));
 //        System.out.println(Arrays.toString((new PourWater()).pourWater(heights, 5, 2)));
     }
 
     public int[] pourWater(int[] heights, int V, int K) {
-        int len = heights.length;
-        int  left = K;
-        int  right = K;
-        int curr = heights[K];
-        while (V > 0) {
-            while (left - 1 >= 0 && heights[left] >= heights[left - 1]) {
-                left--;
-            }
+       while (V > 0) drop: {
+            V--;
+           for (int i = -1; i <= 1; i+= 2) {
+               int j = K;
+               int best = K;
+               while (0 <= j + i && j + i < heights.length && heights[j + i] <= heights[j]) {
+                   if (heights[j + i] < heights[j]) {
+                        best = j + i;
+                   }
+                   j += i;
 
-        }
-        return heights;
+               }
+               if (heights[best] < heights[K]) {
+                    heights[best]++;
+                    break drop;
+               }
+           }
+           heights[K]++;
+       }
+       return heights;
     }
 }
