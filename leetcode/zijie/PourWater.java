@@ -43,7 +43,9 @@ public class PourWater {
         int  right = K;
         int curr = heights[K];
         while (V > 0) {
-//            while (heights[left] > heights[left - 1])
+            while (left - 1 >= 0 && heights[left] >= heights[left - 1]) {
+                left--;
+            }
 
         }
         return heights;

@@ -1,4 +1,4 @@
-package offer;
+//package offer;
 /**
  * Created by IntelliJ IDEA.
  * User: ckhero
